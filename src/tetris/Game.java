@@ -1,6 +1,7 @@
 package tetris;
 
 import tetris.pieces.Piece;
+import tetris.pieces.SquarePiece;
 
 /**
  * Manages the Board and pieces.
@@ -14,6 +15,7 @@ public class Game {
 
    public Game() {
       board = new Board();
+      currPiece = new SquarePiece(0, 0);
    }
 
    public boolean moveLeft() {

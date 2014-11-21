@@ -78,4 +78,6 @@ public abstract class Piece {
    public int[][] getShapeMatrix() {
       return shapeMatrix;
    }
+
+   public abstract int getVal(int row, int col);
 }

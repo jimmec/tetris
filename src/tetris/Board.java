@@ -44,8 +44,24 @@ public class Board {
     * 
     * @param currPiece
     */
-   public void print(Piece currPiece) {
-      // TODO Auto-generated method stub
+   public void print(Piece p) {
+      for (int col = 0; col < WIDTH + 2; col++)
+         System.out.print("*");
+      System.out.println();
 
+      char output;
+      for (int row = 0; row < HEIGHT; row++) {
+         System.out.print("|");
+         for (int col = 0; col < WIDTH; col++) {
+            int bValue = board[row][col];
+            int piece = p.getVal(row, col);
+            System.out.print(bValue == 0 && piece == 0 ? " " : "#");
+         }
+         System.out.println("|");
+      }
+
+      for (int col = 0; col < WIDTH + 2; col++)
+         System.out.print("*");
+      System.out.println();
    }
 }
