@@ -13,7 +13,7 @@ package utils;
  */
 public class RotateMatrix {
    /**
-    * Will implement using a rotation matrix.
+    * Implement using a rotation matrix.
     * Treating the array index of each value in matrix as a Cartesian coordiante.
     * This solution should be easier to generalize to arbitrary rotation angles.
     *
@@ -21,9 +21,13 @@ public class RotateMatrix {
     * (x',y') = (x,y) |cos(theta) sin(theta) |
     * |-sin(theta) cos(theta)|
     *
-    * Algo. iterates
+    * Algo. iterates through each point in the array.
+    * 
+    * @param in
+    * @param theta
+    *           angle to rotate CCW in radians
     */
-   public static int[][] rotate90(int[][] in) {
+   public static int[][] rotate(int[][] in, double theta) {
       // Shotty input validation...
       if (in[0].length != in.length) {
          throw new IllegalArgumentException("input is not a square matrix!");
@@ -59,8 +63,8 @@ public class RotateMatrix {
              * |1 0|
              * (xPrimeTranslated, yPrimeTranslated) = (xTranslated, yTranslated) * A
              */
-            double xPrimeTranslated = xTranslated * 0 + 1 * yTranslated;
-            double yPrimeTranslated = -xTranslated + 0 * yTranslated;
+            double xPrimeTranslated = xTranslated * (int) Math.cos(theta) - (int) Math.sin(theta) * yTranslated;
+            double yPrimeTranslated = xTranslated * (int) Math.sin(theta) + (int) Math.cos(theta) * yTranslated;
 
             // Flip y coordinate back
             yPrimeTranslated = -yPrimeTranslated;
@@ -76,6 +80,26 @@ public class RotateMatrix {
       return result;
    }
 
+   /**
+    * Rotates CCW by 90 degrees
+    * 
+    * @param in
+    * @return
+    */
+   public static int[][] rotate90(int[][] in) {
+      return rotate(in, Math.PI / 2);
+   }
+
+   /**
+    * Rotates CCW by 270 degrees ie. CW 90
+    * 
+    * @param in
+    * @return
+    */
+   public static int[][] rotate270(int[][] in) {
+      return rotate(in, 3 * Math.PI / 2);
+   }
+
    public static void prettyPrint(int[][] in) {
       for (int y = 0; y < in.length; y++) {
          System.out.print("| ");
@@ -87,11 +111,15 @@ public class RotateMatrix {
    }
 
    public static void main(String[] args) {
-      int[][] mat1 = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+      int[][] mat1 = new int[][] { { 0, 0, 0 }, { 1, 1, 1 }, { 0, 1, 0 } };
 
-      int[][] mat2 = new int[][] { { 1, 2, 3, 1 }, { 4, 5, 6, 2 }, { 7, 8, 9, 3 }, { 8, 8, 8, 8 } };
+      int[][] mat2 = new int[][] { { 0, 0, 0 }, { 1, 1, 1 }, { 0, 0, 1 } };
 
       int[][] mat3 = new int[][] { { 1 } };
+      int[][] mat4 = new int[][] { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 1, 1, 1, 1 }, { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 } };
+      int[][] mat5 = new int[][] { { 1, 1 }, { 1, 1 } };
+      int[][] mat6 = new int[][] { { 0, 0, 0 }, { 1, 1, 0 }, { 0, 1, 1 } };
 
       prettyPrint(mat1);
       System.out.println("rotated CW by 90 is: ");
@@ -101,8 +129,16 @@ public class RotateMatrix {
       System.out.println("rotated CW by 90 is: ");
       prettyPrint(rotate90(mat2));
 
-      prettyPrint(mat3);
+      // prettyPrint(mat3);
+      // System.out.println("rotated CW by 90 is: ");
+      // prettyPrint(rotate90(mat3));
+
+      prettyPrint(mat4);
       System.out.println("rotated CW by 90 is: ");
-      prettyPrint(rotate90(mat3));
+      prettyPrint(rotate90(mat4));
+
+      prettyPrint(mat6);
+      System.out.println("rotated CW by 270 is: ");
+      prettyPrint(rotate90(rotate90(rotate90(mat6))));
    }
 }

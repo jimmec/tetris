@@ -1,5 +1,7 @@
 package tetris;
 
+import tetris.pieces.Piece;
+
 public class Board {
    static int WIDTH = 10;
    static int HEIGHT = 10;
@@ -35,5 +37,15 @@ public class Board {
       for (int col = 0; col < WIDTH + 2; col++)
          System.out.print("*");
       System.out.println();
+   }
+
+   /**
+    * Prints this board and one active piece
+    * 
+    * @param currPiece
+    */
+   public void print(Piece currPiece) {
+      // TODO Auto-generated method stub
+
    }
 }
