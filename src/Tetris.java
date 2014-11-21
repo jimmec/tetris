@@ -11,7 +11,7 @@ public class Tetris {
    private static long UPDATE_INTERVAL = 1000;
 
    public static void main(String[] args) {
-
+      start();
    }
 
    /**
@@ -26,12 +26,14 @@ public class Tetris {
       board.set(6, 2, 1);
       board.print();
 
-      String input = TetrisUtils.getInput();
-      if (input == TetrisUtils.LEFT)
-         System.out.println("LEFT was pressed");
-      else if (input == TetrisUtils.UP)
-         System.out.println("UP was pressed");
-      else
-         System.out.println(input);
+      while (true) {
+         String input = TetrisUtils.getInput();
+         if (input == TetrisUtils.LEFT)
+            System.out.println("LEFT was pressed");
+         else if (input == TetrisUtils.UP)
+            System.out.println("UP was pressed");
+         else
+            System.out.println(input);
+      }
    }
 }
