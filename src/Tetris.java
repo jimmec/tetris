@@ -8,7 +8,7 @@ import utils.TetrisUtils;
  *
  */
 public class Tetris {
-   private static long UPDATE_INTERVAL = 5000;
+   private static long UPDATE_INTERVAL = 2000;
 
    public static void main(String[] args) {
       start();
@@ -25,22 +25,17 @@ public class Tetris {
          Thread mainGame = new Thread(new Runnable() {
             @Override
             public void run() {
-               boolean shouldAnchor = false;
                boolean gameOver = false;
 
                while (!gameOver) {
                   g.render();
                   g.moveDown();
 
-                  if (shouldAnchor) {
+                  if (g.shouldAnchor()) {
                      g.anchorPiece();
                      if (!g.genNextPiece()) {
                         gameOver = true;
                      }
-                     shouldAnchor = false;
-                  } else {
-                     // check if we should be anchoring next turn
-                     shouldAnchor = g.shouldAnchor();
                   }
                   try {
                      Thread.sleep(UPDATE_INTERVAL);
@@ -56,19 +51,14 @@ public class Tetris {
          mainGame.start();
 
          // Use this original thread to make moves.
-         boolean shouldAnchor = false;
          boolean gameOver = false;
 
          while (!gameOver) {
-            if (shouldAnchor) {
+            if (g.shouldAnchor()) {
                g.anchorPiece();
                if (!g.genNextPiece()) {
                   gameOver = true;
                }
-               shouldAnchor = false;
-            } else {
-               // check if we should be anchoring next turn
-               shouldAnchor = g.shouldAnchor();
             }
             String input = TetrisUtils.getInput();
             if (input == TetrisUtils.LEFT)
