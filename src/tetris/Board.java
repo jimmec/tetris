@@ -8,11 +8,11 @@ public class Board {
    // The board is represented as an array of arrays, with 10 rows and 10 columns.
    int[][] board = new int[HEIGHT][WIDTH];
 
-   public int[][] getBoard() {
+   public synchronized int[][] getBoard() {
       return board;
    }
 
-   public void set(int x, int y, int value) {
+   public synchronized void set(int x, int y, int value) {
       board[y][x] = value;
    }
 
@@ -44,9 +44,10 @@ public class Board {
     * 
     * @param currPiece
     */
-   public void print(Piece p) {
-      for (int col = 0; col < WIDTH + 2; col++)
+   public synchronized void print(Piece p) {
+      for (int col = 0; col < WIDTH + 2; col++) {
          System.out.print("*");
+      }
       System.out.println();
 
       char output;
@@ -60,12 +61,13 @@ public class Board {
          System.out.println("|");
       }
 
-      for (int col = 0; col < WIDTH + 2; col++)
+      for (int col = 0; col < WIDTH + 2; col++) {
          System.out.print("*");
+      }
       System.out.println();
    }
 
-   public void anchorPiece(Piece p) {
+   public synchronized void anchorPiece(Piece p) {
       for (int row = 0; row < HEIGHT; row++) {
          for (int col = 0; col < WIDTH; col++) {
             board[row][col] = p.getVal(row, col) | board[row][col];
