@@ -26,7 +26,7 @@ public class Tetris {
          if (input == TetrisUtils.LEFT)
             g.moveLeft();
          else if (input == TetrisUtils.UP)
-            System.out.println("UP was pressed");
+            g.rotate();
          else if (input == TetrisUtils.RIGHT)
             g.moveRight();
          else

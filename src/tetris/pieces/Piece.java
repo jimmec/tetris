@@ -20,7 +20,7 @@ public abstract class Piece {
       yPos += 1;
       boolean success = checkBounds(b);
       if (!success) {
-         yPos += 1;
+         yPos -= 1;
       }
       return success;
    }
@@ -53,11 +53,13 @@ public abstract class Piece {
    }
 
    /**
-    * Given a board, check if this piece in its current position is out of bounds or colliding.
+    * Given a board, check if this piece in its current position is out of bounds.
     * 
     * @param board
     */
    public abstract boolean checkBounds(Board board);
+
+   public abstract boolean checkCollision(Board board);
 
    public int getyPos() {
       return yPos;

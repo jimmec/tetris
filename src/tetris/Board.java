@@ -3,8 +3,8 @@ package tetris;
 import tetris.pieces.Piece;
 
 public class Board {
-   static int WIDTH = 10;
-   static int HEIGHT = 10;
+   public static int WIDTH = 10;
+   public static int HEIGHT = 10;
    // The board is represented as an array of arrays, with 10 rows and 10 columns.
    int[][] board = new int[HEIGHT][WIDTH];
 
@@ -63,5 +63,13 @@ public class Board {
       for (int col = 0; col < WIDTH + 2; col++)
          System.out.print("*");
       System.out.println();
+   }
+
+   public void anchorPiece(Piece p) {
+      for (int row = 0; row < HEIGHT; row++) {
+         for (int col = 0; col < WIDTH; col++) {
+            board[row][col] = p.getVal(row, col) | board[row][col];
+         }
+      }
    }
 }

@@ -12,7 +12,10 @@ public class SquarePiece extends Piece {
 
    @Override
    public boolean checkBounds(Board board) {
-      return true;
+      if (getyPos() + 1 < Board.HEIGHT && getyPos() >= 0 && getxPos() + 1 < Board.WIDTH && getxPos() >= 0) {
+         return true;
+      }
+      return false;
    }
 
    @Override
@@ -22,5 +25,11 @@ public class SquarePiece extends Piece {
       } else {
          return 0;
       }
+   }
+
+   @Override
+   public boolean checkCollision(Board board) {
+      // TODO Auto-generated method stub
+      return false;
    }
 }

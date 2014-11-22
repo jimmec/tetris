@@ -1,7 +1,7 @@
 package tetris;
 
+import tetris.pieces.AnglePiece;
 import tetris.pieces.Piece;
-import tetris.pieces.SquarePiece;
 
 /**
  * Manages the Board and pieces.
@@ -15,7 +15,7 @@ public class Game {
 
    public Game() {
       board = new Board();
-      currPiece = new SquarePiece(0, 0);
+      currPiece = new AnglePiece(3, 0);
    }
 
    public boolean moveLeft() {
@@ -30,9 +30,12 @@ public class Game {
       return currPiece.moveDown(board);
    }
 
+   public boolean rotate() {
+      return currPiece.rotate(board);
+   }
+
    public void render() {
       board.print(currPiece);
-
    }
 
 }
