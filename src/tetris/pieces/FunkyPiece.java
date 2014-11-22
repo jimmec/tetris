@@ -11,10 +11,16 @@ public class FunkyPiece extends Piece {
 
    @Override
    public boolean checkBounds(Board board) {
-      if (getyPos() + 1 < Board.HEIGHT && getyPos() >= 0 && getxPos() + 1 < Board.WIDTH && getxPos() - 1 >= 0) {
-         return true;
+      boolean outBounds = false;
+      for (int row = 0; row < shapeMatrix.length; row++) {
+         for (int col = 0; col < shapeMatrix[0].length; col++) {
+            if (shapeMatrix[row][col] == 1) {
+               outBounds = outBounds || getxPos() + col - 1 < 0 || getxPos() + col - 1 > Board.WIDTH - 1
+                     || getyPos() + row - 1 < 0 || getyPos() + row - 1 > Board.HEIGHT - 1;
+            }
+         }
       }
-      return false;
+      return !outBounds;
    }
 
    @Override
@@ -29,8 +35,22 @@ public class FunkyPiece extends Piece {
 
    @Override
    public boolean checkCollision(Board board) {
-      // TODO Auto-generated method stub
-      return false;
+      boolean collide = false;
+      for (int row = 0; row < shapeMatrix.length; row++) {
+         for (int col = 0; col < shapeMatrix[0].length; col++) {
+            if (shapeMatrix[row][col] == 1) {
+               // if the piece is here, make sure the board is clear there.
+               boolean c = board.getBoard()[getyPos() + row - 1][getxPos() + col - 1] == 1;
+               // if (c) {
+               // System.out.println(collide);
+               // System.out.println(String.format("At: (%d,%d)", row, col));
+               // System.out.println(String.format("Board: (%d,%d)", getyPos(), getxPos()));
+               // }
+               collide = collide || c;
+            }
+         }
+      }
+      return !collide;
    }
 
 }

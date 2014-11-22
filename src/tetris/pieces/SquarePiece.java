@@ -29,7 +29,49 @@ public class SquarePiece extends Piece {
 
    @Override
    public boolean checkCollision(Board board) {
-      // TODO Auto-generated method stub
+      boolean collide = false;
+      for (int row = 0; row < shapeMatrix.length; row++) {
+         for (int col = 0; col < shapeMatrix[0].length; col++) {
+            if (shapeMatrix[row][col] == 1) {
+               // if the piece is here, make sure the board is clear there.
+               boolean c = board.getBoard()[getyPos() + row][getxPos() + col] == 1;
+               // if (c) {
+               // System.out.println(collide);
+               // System.out.println(String.format("At: (%d,%d)", row, col));
+               // System.out.println(String.format("Board: (%d,%d)", getyPos(), getxPos()));
+               // }
+               collide = collide || c;
+            }
+         }
+      }
+      return !collide;
+   }
+
+   /**
+    * Given a board, checks if this piece is in a state to be anchored.
+    * ie. Is there a filled board slot under directly under any part of the piece.
+    * 
+    * @param board
+    * @return true if we should anchor this piece, false ow.
+    */
+   @Override
+   public boolean shouldAnchor(Board board) {
+      boolean anchor = false;
+      for (int row = 0; row < shapeMatrix.length; row++) {
+         for (int col = 0; col < shapeMatrix[0].length; col++) {
+            if (shapeMatrix[row][col] == 1) {
+               // if the piece is here, check if its at a low boundary
+               int yPos = getyPos() + row;
+               if (yPos + 1 >= Board.HEIGHT) {
+                  return true;
+               }
+               // else check if theres filled board slot directly beneath
+               if (board.getBoard()[yPos + 1][getxPos() + col] == 1) {
+                  return true;
+               }
+            }
+         }
+      }
       return false;
    }
 }
